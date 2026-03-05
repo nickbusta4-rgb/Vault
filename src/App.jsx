@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart3, TrendingUp, DollarSign, Plus, Settings, LogOut, Eye, EyeOff, Download, Share2, Menu, X, AlertCircle, CheckCircle } from 'lucide-react';
-
+import React, { useState } from 'react';
+import { BarChart3, TrendingUp, DollarSign, Plus, LogOut, Eye, Download, Menu, X, AlertCircle } from 'lucide-react';
 // ============= INITIAL SAMPLE DATA =============
 const SAMPLE_CREATOR = {
   id: 'creator_001',
