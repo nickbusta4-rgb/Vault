@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart3, TrendingUp, DollarSign, Plus, LogOut, Eye, Download, Menu, X, AlertCircle } from 'lucide-react';
+import { BarChart3, TrendingUp, DollarSign, Plus, Download, Menu, X, AlertCircle } from 'lucide-react';
 // ============= INITIAL SAMPLE DATA =============
 const SAMPLE_CREATOR = {
   id: 'creator_001',
@@ -42,7 +42,7 @@ export default function CreatorDashboard() {
   const [showSignup, setShowSignup] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [revenueData, setRevenueData] = useState(SAMPLE_REVENUE_DATA);
+  const [revenueData] = useState(SAMPLE_REVENUE_DATA);
   const [creator, setCreator] = useState(null);
   const [showAddRevenue, setShowAddRevenue] = useState(false);
   const [newRevenueSource, setNewRevenueSource] = useState({ source: 'YouTube', amount: '' });
