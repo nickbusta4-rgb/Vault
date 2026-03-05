@@ -75,7 +75,6 @@ export default function CreatorDashboard() {
 
   const addRevenueEntry = () => {
     if (newRevenueSource.amount) {
-      const month = new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
       // In a real app, this would save to a database
       setNewRevenueSource({ source: 'YouTube', amount: '' });
       setShowAddRevenue(false);
