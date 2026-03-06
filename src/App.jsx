@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { BarChart3, TrendingUp, DollarSign, Plus, Eye, Download, Menu, X, AlertCircle } from 'lucide-react';
+
 // ============= INITIAL SAMPLE DATA =============
 const SAMPLE_CREATOR = {
   id: 'creator_001',
   name: 'Alex Chen',
   email: 'alex@example.com',
   niche: 'Personal Finance',
-  monthlyRevenue: 45230,
+  monthlyRevenue: 52700,
   followers: 145000,
   verified: false
 };
 
 const SAMPLE_REVENUE_DATA = [
-  { month: 'Jan', youtube: 12000, patreon: 8500, gumroad: 4200, sponsorships: 6500, other: 2100 },
-  { month: 'Feb', youtube: 13200, patreon: 8800, gumroad: 4500, sponsorships: 7000, other: 2300 },
-  { month: 'Mar', youtube: 14100, patreon: 9200, gumroad: 5100, sponsorships: 7800, other: 2500 },
-  { month: 'Apr', youtube: 15800, patreon: 9600, gumroad: 5600, sponsorships: 8200, other: 2800 },
-  { month: 'May', youtube: 16500, patreon: 10200, gumroad: 6100, sponsorships: 8500, other: 3100 },
-  { month: 'Jun', youtube: 17200, patreon: 10800, gumroad: 6600, sponsorships: 9200, other: 3300 },
+  { month: 'Jan', youtube: 12000, patreon: 8500, tiktok: 5200, twitch: 6500, kick: 4100 },
+  { month: 'Feb', youtube: 13200, patreon: 8800, tiktok: 5500, twitch: 7000, kick: 4300 },
+  { month: 'Mar', youtube: 14100, patreon: 9200, tiktok: 6100, twitch: 7800, kick: 4500 },
+  { month: 'Apr', youtube: 15800, patreon: 9600, tiktok: 6600, twitch: 8200, kick: 4800 },
+  { month: 'May', youtube: 16500, patreon: 10200, tiktok: 7100, twitch: 8500, kick: 5100 },
+  { month: 'Jun', youtube: 17200, patreon: 10800, tiktok: 7600, twitch: 9200, kick: 5300 },
 ];
 
 const NICHE_BENCHMARKS = {
@@ -29,14 +30,14 @@ const NICHE_BENCHMARKS = {
 };
 
 const PLATFORM_BREAKDOWN = {
-  'YouTube': { percentage: 38, color: '#FF0000' },
-  'Patreon': { percentage: 24, color: '#0066FF' },
-  'Gumroad': { percentage: 15, color: '#00D084' },
-  'Sponsorships': { percentage: 18, color: '#FFB703' },
-  'Other': { percentage: 5, color: '#6C757D' },
+  'YouTube': { percentage: 33, color: '#FF0000' },
+  'Patreon': { percentage: 20, color: '#0066FF' },
+  'TikTok': { percentage: 14, color: '#000000' },
+  'Twitch': { percentage: 17, color: '#9146FF' },
+  'Kick': { percentage: 10, color: '#00D084' },
+  'Sponsorships': { percentage: 6, color: '#FFD700' },
 };
 
-// ============= MAIN APP =============
 export default function CreatorDashboard() {
   const [user, setUser] = useState(null);
   const [showSignup, setShowSignup] = useState(false);
@@ -75,7 +76,6 @@ export default function CreatorDashboard() {
 
   const addRevenueEntry = () => {
     if (newRevenueSource.amount) {
-      // In a real app, this would save to a database
       setNewRevenueSource({ source: 'YouTube', amount: '' });
       setShowAddRevenue(false);
     }
@@ -96,11 +96,10 @@ export default function CreatorDashboard() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* HEADER */}
       <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-black rounded flex items-center justify-center text-white font-bold text-lg" style={{fontFamily: "'system-ui', sans-serif", fontWeight: 800, letterSpacing: '-0.5px'}}>V</div>
+            <div className="w-8 h-8 bg-black rounded flex items-center justify-center text-white font-bold text-sm">V</div>
             <div>
               <h1 className="text-xl font-semibold text-black">vault</h1>
               <p className="text-xs text-gray-500">Revenue Intelligence</p>
@@ -109,9 +108,7 @@ export default function CreatorDashboard() {
 
           <div className="hidden md:flex items-center gap-8">
             <span className="text-sm text-gray-600">{user.name}</span>
-            <button onClick={handleLogout} className="text-sm text-gray-600 hover:text-black transition">
-              Logout
-            </button>
+            <button onClick={handleLogout} className="text-sm text-gray-600 hover:text-black transition">Logout</button>
           </div>
 
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
@@ -120,63 +117,51 @@ export default function CreatorDashboard() {
         </div>
       </header>
 
-      {/* MOBILE MENU */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-gray-200 bg-white p-4 space-y-4">
           <p className="text-sm text-gray-600">{user.name}</p>
-          <button onClick={handleLogout} className="w-full text-left text-sm text-gray-600 hover:text-black transition">
-            Logout
-          </button>
+          <button onClick={handleLogout} className="w-full text-left text-sm text-gray-600 hover:text-black transition">Logout</button>
         </div>
       )}
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* VERIFICATION BANNER */}
         {!creator?.verified && (
           <div className="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start gap-3">
             <AlertCircle size={20} className="text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-semibold text-blue-900">Complete Your Profile</p>
-              <p className="text-sm text-blue-800 mt-1">Connect your revenue sources (Stripe, Gumroad, Patreon) to unlock benchmarking and insights.</p>
+              <p className="text-sm text-blue-800 mt-1">Connect your revenue sources (YouTube, Patreon, TikTok, Twitch, Kick) to unlock benchmarking and insights.</p>
             </div>
           </div>
         )}
 
-        {/* KEY METRICS */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           <MetricCard
             label="This Month"
             value={hideRevenue ? '***' : `$${totalMonthly.toLocaleString()}`}
             subtext={`+${monthlyGrowth}% from last month`}
-            icon={<DollarSign size={24} />}
             onToggleHide={() => setHideRevenue(!hideRevenue)}
           />
           <MetricCard
             label="Followers"
             value={creator?.followers.toLocaleString()}
             subtext={`${creator?.niche}`}
-            icon={<TrendingUp size={24} />}
           />
           <MetricCard
             label="vs. Benchmark"
             value={`${vs_benchmark > 0 ? '+' : ''}${vs_benchmark}%`}
             subtext={`Median: $${benchmark.medianMonthly.toLocaleString()}`}
             highlight={vs_benchmark > 0}
-            icon={<BarChart3 size={24} />}
           />
           <MetricCard
             label="Annual Estimate"
             value={hideRevenue ? '***' : `$${(totalMonthly * 12).toLocaleString()}`}
             subtext="Based on current month"
-            icon={<DollarSign size={24} />}
           />
         </div>
 
-        {/* MAIN CONTENT */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* LEFT COLUMN */}
           <div className="lg:col-span-2 space-y-8">
-            {/* REVENUE CHART */}
             <div className="bg-white border border-gray-200 rounded-lg p-8">
               <div className="flex justify-between items-center mb-8">
                 <div>
@@ -188,7 +173,6 @@ export default function CreatorDashboard() {
                 </button>
               </div>
 
-              {/* SIMPLE BAR CHART */}
               <div className="space-y-6">
                 {revenueData.map((data, idx) => {
                   const total = Object.values(data).filter((v, i) => i > 0).reduce((a, b) => a + b, 0);
@@ -202,27 +186,21 @@ export default function CreatorDashboard() {
                         <span className="text-sm font-semibold text-black">${total.toLocaleString()}</span>
                       </div>
                       <div className="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-                        <div
-                          className="bg-black rounded-full h-3 transition-all duration-500"
-                          style={{ width: `${percentage}%` }}
-                        />
+                        <div className="bg-black rounded-full h-3 transition-all duration-500" style={{ width: `${percentage}%` }} />
                       </div>
-                      {/* BREAKDOWN */}
                       <div className="flex gap-1 mt-2">
                         {[
                           { key: 'youtube', color: '#FF0000' },
-                          { key: 'patreon', color: '#FF424D' },
-                          { key: 'gumroad', color: '#EE6352' },
-                          { key: 'sponsorships', color: '#FFB703' },
+                          { key: 'patreon', color: '#0066FF' },
+                          { key: 'tiktok', color: '#000000' },
+                          { key: 'twitch', color: '#9146FF' },
+                          { key: 'kick', color: '#00D084' },
                         ].map(({ key, color }) => (
                           data[key] > 0 && (
                             <div
                               key={key}
                               className="h-1.5 rounded-full"
-                              style={{ 
-                                width: `${(data[key] / total) * 100}%`,
-                                backgroundColor: color 
-                              }}
+                              style={{ width: `${(data[key] / total) * 100}%`, backgroundColor: color }}
                             />
                           )
                         ))}
@@ -232,8 +210,7 @@ export default function CreatorDashboard() {
                 })}
               </div>
 
-              {/* LEGEND */}
-              <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-gray-200">
+              <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-200">
                 {Object.entries(PLATFORM_BREAKDOWN).map(([platform, data]) => (
                   <div key={platform} className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: data.color }} />
@@ -243,7 +220,6 @@ export default function CreatorDashboard() {
               </div>
             </div>
 
-            {/* MONTHLY BREAKDOWN */}
             <div className="bg-white border border-gray-200 rounded-lg p-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold text-black">This Month's Breakdown</h2>
@@ -258,9 +234,10 @@ export default function CreatorDashboard() {
                     <select value={newRevenueSource.source} onChange={(e) => setNewRevenueSource({ ...newRevenueSource, source: e.target.value })} className="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-black">
                       <option>YouTube</option>
                       <option>Patreon</option>
-                      <option>Gumroad</option>
+                      <option>TikTok</option>
+                      <option>Twitch</option>
+                      <option>Kick</option>
                       <option>Sponsorships</option>
-                      <option>Other</option>
                     </select>
                     <input
                       type="number"
@@ -293,9 +270,7 @@ export default function CreatorDashboard() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN */}
           <div className="space-y-8">
-            {/* BENCHMARK COMPARISON */}
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-8">
               <h2 className="text-lg font-semibold text-black mb-6">How You Compare</h2>
 
@@ -353,7 +328,6 @@ export default function CreatorDashboard() {
               </div>
             </div>
 
-            {/* INSIGHTS */}
             <div className="bg-white border border-gray-200 rounded-lg p-8">
               <h2 className="text-lg font-semibold text-black mb-6">Insights</h2>
 
@@ -367,7 +341,7 @@ export default function CreatorDashboard() {
                 <InsightCard
                   icon={<DollarSign size={16} />}
                   title="Sponsorships Opportunity"
-                  desc="Sponsorships are only 18% of revenue. Comparable creators avg 28%"
+                  desc="Sponsorships are only 6% of revenue. Top creators average 15%"
                   positive={true}
                 />
                 <InsightCard
@@ -379,7 +353,6 @@ export default function CreatorDashboard() {
               </div>
             </div>
 
-            {/* CTA */}
             <div className="bg-black text-white rounded-lg p-8 text-center">
               <h3 className="text-lg font-semibold mb-2">Ready to Grow?</h3>
               <p className="text-sm text-gray-300 mb-4">Get personalized growth strategies based on your data</p>
@@ -394,8 +367,7 @@ export default function CreatorDashboard() {
   );
 }
 
-// ============= METRIC CARD COMPONENT =============
-function MetricCard({ label, value, subtext, icon, highlight, onToggleHide }) {
+function MetricCard({ label, value, subtext, highlight, onToggleHide }) {
   return (
     <div className={`border rounded-lg p-6 ${highlight ? 'bg-black text-white border-black' : 'bg-white border-gray-200'}`}>
       <div className="flex justify-between items-start mb-4">
@@ -411,7 +383,6 @@ function MetricCard({ label, value, subtext, icon, highlight, onToggleHide }) {
           <p className={`text-3xl font-bold mb-2 ${highlight ? 'text-white' : 'text-black'}`}>{value}</p>
           <p className={`text-sm ${highlight ? 'text-gray-300' : 'text-gray-500'}`}>{subtext}</p>
         </div>
-        <div className={highlight ? 'text-white' : 'text-gray-300'}>{icon}</div>
       </div>
     </div>
   );
@@ -429,19 +400,16 @@ function InsightCard({ icon, title, desc, positive }) {
   );
 }
 
-// ============= AUTH PAGE =============
 function AuthPage({ email, setEmail, password, setPassword, handleLogin, showSignup, setShowSignup, handleSignup }) {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        {/* HEADER */}
         <div className="text-center mb-12">
-          <div className="w-12 h-12 bg-black rounded flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">C</div>
+          <div className="w-12 h-12 bg-black rounded flex items-center justify-center text-white font-bold text-lg mx-auto mb-4">V</div>
           <h1 className="text-4xl font-bold text-black mb-2">vault</h1>
           <p className="text-gray-600">See all your revenue in one place</p>
         </div>
 
-        {/* FORM */}
         <div className="space-y-4">
           <input
             type="email"
@@ -491,7 +459,6 @@ function AuthPage({ email, setEmail, password, setPassword, handleLogin, showSig
           )}
         </div>
 
-        {/* DEMO INFO */}
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Demo Access</p>
           <div className="bg-gray-50 rounded-lg p-4 space-y-2 text-xs text-gray-600">
