@@ -30,8 +30,8 @@ const NICHE_BENCHMARKS = {
 
 const PLATFORM_BREAKDOWN = {
   'YouTube': { percentage: 38, color: '#FF0000' },
-  'Patreon': { percentage: 24, color: '#FF424D' },
-  'Gumroad': { percentage: 15, color: '#EE6352' },
+  'Patreon': { percentage: 24, color: '#0066FF' },
+  'Gumroad': { percentage: 15, color: '#00D084' },
   'Sponsorships': { percentage: 18, color: '#FFB703' },
   'Other': { percentage: 5, color: '#6C757D' },
 };
