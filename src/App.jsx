@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarChart3, TrendingUp, DollarSign, Plus, Eye, Download, Menu, X, AlertCircle, LineChart, PieChart, Users, Zap, Lock } from 'lucide-react';
+import { TrendingUp, DollarSign, Users, Zap, Lock } from 'lucide-react';
 
 const VAULT_INTELLIGENCE = {
   'Personal Finance': {
