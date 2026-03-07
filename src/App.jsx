@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { TrendingUp, DollarSign, Users, Zap, Lock } from 'lucide-react';
 
 const VAULT_INTELLIGENCE = {
   'Personal Finance': {
